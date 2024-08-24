@@ -1,25 +1,32 @@
 //封装双向链表
 
 function DoublyLinkedList() {
-  this.head = null;
-  this.tail = null;
+  this.head = null; //头指针
+  this.tail = null; //尾指针
   this.length = 0;
   function Node(value) {
     //内部类结点
     this.value = value;
-    this.prev = null;
-    this.next = null;
+    this.prev = null; //前指针
+    this.next = null; //后指针
   }
+  /**
+   *
+   * @param {值} ele
+   * append方法 插入一个元素
+   * 要考虑到头指针和尾指针的指向
+   */
   this.append = function (ele) {
     let node = new Node(ele);
     if (this.length === 0) {
+      //没有元素的情况
       this.head = node;
       this.tail = node;
     }
     if (this.length > 0) {
-      node.prev = this.tail;
-      this.tail.next = node;
-      this.tail = node;
+      node.prev = this.tail; //新元素的头指针指向当前的尾指针的指向
+      this.tail.next = node; //当前尾指针的指向的元素的下一个指向node
+      this.tail = node; //然后再将尾指针指向新节点
     }
     this.length++;
   };
@@ -51,14 +58,16 @@ function DoublyLinkedList() {
     if (position < 0 || position > this.length) return false;
     let node = new Node(ele);
     if (this.length === 0) {
+      //判断当没有元素的时候，即插入第一个元素
       this.head = node;
       this.tail = node;
     } else if (position === 0) {
-      this.tail.prev = node;
-      node.next = this.tail;
-      this.head = node;
+      node.next = this.head; // 新节点指向原头部
+      this.head.prev = node; // 原头部的前指针指向新节点
+      this.head = node; // 更新头部为新节点
       if (this.length === 1) {
-        this.tail.prev = node;
+        // 当链表只有一个元素时，也需要更新尾部
+        this.tail = node;
       }
     } else if (position === this.length) {
       node.prev = this.tail;
@@ -180,12 +189,12 @@ list.append("abcd");
 list.append("efgh");
 list.append("lonb");
 
-console.log(list.backwardString());
+// console.log(list.backwardString());
 list.insert(3, "aassssd");
-console.log(list.forwardString());
-console.log(list.get(3));
-console.log(list.indexOf("lonb"));
+// console.log(list.forwardString());
+// console.log(list.get(3));
+// console.log(list.indexOf("lonb"));
 list.update(2, "123");
-console.log(list.removeAt(3));
+console.log(list.removeAt(list.length - 1));
 
 console.log(list.backwardString());
