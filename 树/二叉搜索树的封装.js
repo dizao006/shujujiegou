@@ -33,6 +33,8 @@ function BST() {
       }
     }
   };
+
+  //深度优先搜索包括前中后三种遍历方式
   //前序
   this.preOrderTraversal = function (root) {
     if (root == null) {
@@ -59,6 +61,23 @@ function BST() {
     this.afterOrderTraversal(root.left);
     this.afterOrderTraversal(root.right);
     console.log(root.data + "->");
+  };
+  //广度优先搜索
+  this.bfs = function (root = this.root) {
+    if (root == null) return [];
+    const queue = [root];
+    const result = [];
+    while (queue.length > 0) {
+      const current = queue.shift();
+      result.push(current.data);
+      if (current.left != null) {
+        queue.push(current.left);
+      }
+      if (current.right != null) {
+        queue.push(current.right);
+      }
+    }
+    return result;
   };
   this.max = function () {
     let node = this.root;
@@ -188,10 +207,13 @@ bst.insert(20);
 bst.insert(18);
 bst.insert(25);
 bst.insert(6);
-console.log(JSON.stringify(bst.root, null, 8));
+// console.log(JSON.stringify(bst.root, null, 8));
 
-// bst.afterOrderTraversal(bst.root);
+// // bst.afterOrderTraversal(bst.root);
 
-// console.log(bst.search(null, 25));
-bst.delete(13);
-console.log(JSON.stringify(bst.root, null, 8));
+// // console.log(bst.search(null, 25));
+// bst.delete(13);
+// console.log(JSON.stringify(bst.root, null, 8));
+console.log("====================================");
+console.log(bst.bfs());
+console.log("====================================");
