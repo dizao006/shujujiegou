@@ -94,5 +94,6 @@ list.insert(23);
 // list.bubbleSort();
 // list.selectSort();
 console.log(list.quickSort());
+console.log()
 // list.insertSort2();
 // console.log(list.toString());
